@@ -1,6 +1,8 @@
+import 'package:assignment/constants/colors.dart';
 import 'package:assignment/screens/dashboard.dart';
 import 'package:assignment/widget/event_calendar.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,11 +13,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+          primaryColor: AppColors.primary,
+          scaffoldBackgroundColor: AppColors.primary,
+          appBarTheme: AppBarTheme(
+              color: AppColors.primary,
+              titleTextStyle: TextStyle(
+                fontSize: 21.0,
+                fontWeight: FontWeight.w600,
+                color: AppColors.white,
+              ),
+              iconTheme: IconThemeData(size: 21, color: AppColors.primary),
+              centerTitle: false)),
       home: TableEventsExample(),
     );
   }

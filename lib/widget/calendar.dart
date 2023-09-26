@@ -22,7 +22,6 @@ class _BottomSheetCalendarState extends State<BottomSheetCalendar> {
     double ffem = fem * 0.97;
     return Container(
       decoration: BoxDecoration(
-          color: Theme.of(context).backgroundColor,
           border: Border.all(color: AppColors.white, width: 0.2),
           borderRadius: BorderRadius.only(
               topRight: Radius.circular(52), topLeft: Radius.circular(52))),
