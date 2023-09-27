@@ -1,5 +1,4 @@
 import 'package:assignment/constants/colors.dart';
-import 'package:assignment/screens/dashboard.dart';
 import 'package:assignment/screens/view/users.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,8 +25,8 @@ class MyApp extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                   color: AppColors.white,
                 ),
-                iconTheme: IconThemeData(size: 21, color: AppColors.primary),
+                iconTheme: IconThemeData(size: 21, color: AppColors.white),
                 centerTitle: false)),
-        home: DashBoard());
+        home: UsersPage());
   }
 }

@@ -1,6 +1,7 @@
 import 'package:assignment/constants/colors.dart';
 import 'package:assignment/screens/controller/user_controller.dart';
 import 'package:assignment/screens/model/user_model.dart';
+import 'package:assignment/screens/view/schedule.dart';
 import 'package:assignment/widget/actionIconButton.dart';
 import 'package:assignment/widget/appBar.dart';
 import 'package:flutter/material.dart';
@@ -79,6 +80,14 @@ class UsersPage extends StatelessWidget {
           ),
         );
       }),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: AppColors.secondary,
+        child: Icon(
+          Icons.calendar_today,
+          color: AppColors.white,
+        ),
+        onPressed: () => Get.to(() => EventSchedule()),
+      ),
     );
   }
 }

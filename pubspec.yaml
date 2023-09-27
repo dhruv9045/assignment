@@ -40,7 +40,6 @@ dependencies:
   table_calendar: ^3.0.9
   infinite_scroll_pagination: ^3.2.0
 #  connectivity_plus: ^4.0.2
-  persistent_bottom_nav_bar: ^5.0.2
 
 dev_dependencies:
   flutter_test:

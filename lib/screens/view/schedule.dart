@@ -46,18 +46,23 @@ class _EventScheduleState extends State<EventSchedule> {
       });
       _selectedEvents.value = _getEventsForDay(selectedDay);
       if (_selectedEvents.value.isNotEmpty) {
-        Scaffold.of(context).showBottomSheet(
-          enableDrag: true,
+        showModalBottomSheet(
+          useRootNavigator: true,
+          context: context,
+          isScrollControlled: true,
           backgroundColor: AppColors.white,
+          isDismissible: false,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
             topLeft: Radius.circular(35),
             topRight: Radius.circular(35),
           )),
-          (context) => BottomSheetWidget(
-            event: _selectedEvents,
-            day: selectedDay,
-          ),
+          builder: (BuildContext context) {
+            return BottomSheetWidget(
+              event: _selectedEvents,
+              day: selectedDay,
+            );
+          },
         );
       }
     }
