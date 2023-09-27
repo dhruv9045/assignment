@@ -5,11 +5,12 @@ import '../constants/colors.dart';
 class ActionIcon extends StatelessWidget {
   final Function()? onPress;
   final IconData icon;
-  const ActionIcon({
-    super.key,
-    this.onPress,
-    required this.icon,
-  });
+  final Color iconColor;
+  const ActionIcon(
+      {super.key,
+      this.onPress,
+      required this.icon,
+      this.iconColor = AppColors.primary});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class ActionIcon extends StatelessWidget {
               height: 40,
               child: Icon(
                 icon,
-
+                color: iconColor,
               )),
         ),
       ),

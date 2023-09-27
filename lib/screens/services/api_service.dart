@@ -7,10 +7,11 @@ import '../../constants/handle_exception.dart';
 class AttendanceApi extends GetConnect {
   final HandleException handleException = HandleException();
 
-  Future<dynamic> pageResponse() async {
+  Future<dynamic> usersResponse(body) async {
     try {
-      final response = await get(ApiUrl.baseUrl, headers: {
-        "Authorization": 'Bearer ${AppKeys.authToken}',
+      final response =
+          await post(ApiUrl.baseUrl + ApiUrl.endPointUrl, body, headers: {
+        "Authorization": AppKeys.authToken,
         "Content-Type": "application/json",
         "Accept": "application/json"
       });
@@ -18,7 +19,6 @@ class AttendanceApi extends GetConnect {
       print(response.statusCode);
       return handleException.returnResponse(response: response);
     } catch (e) {
-      // Handle exceptions here
       print('Exception: $e');
 
       rethrow; // Rethrow the exception to the caller

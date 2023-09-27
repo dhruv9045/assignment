@@ -13,6 +13,8 @@ class HandleException {
         return jsonDecode(response.bodyString!);
       case 502:
         return jsonDecode(response.bodyString!);
+      case 406:
+        return jsonDecode(response.bodyString!);
       case 400:
         throw Exception('Bad Request');
       case 401:
@@ -24,7 +26,7 @@ class HandleException {
       case 429:
         throw Exception('Too Many Requests');
       default:
-        throw Exception('Unknown Error: ');
+        throw Exception('Unknown Error');
     }
   }
 }
