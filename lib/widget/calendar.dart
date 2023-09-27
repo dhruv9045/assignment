@@ -1,128 +1,158 @@
+import 'package:assignment/constants/colors.dart';
+import 'package:assignment/constants/format_date.dart';
+import 'package:assignment/constants/utils.dart';
+import 'package:assignment/widget/attendance_box.dart';
+import 'package:assignment/widget/event_stack.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:table_calendar/table_calendar.dart';
 
-import '../constants/colors.dart';
+class BottomSheetWidget extends StatelessWidget {
+  final ValueNotifier<List<Event>> event;
+  final DateTime day;
+  BottomSheetWidget({required this.day, required this.event});
 
-class BottomSheetCalendar extends StatefulWidget {
-  @override
-  _BottomSheetCalendarState createState() => _BottomSheetCalendarState();
-}
-
-class _BottomSheetCalendarState extends State<BottomSheetCalendar> {
-  CalendarFormat _calendarFormat = CalendarFormat.month;
-  DateTime _focusedDay = DateTime.now().subtract(Duration(days: 18 * 365));
-  DateTime? _selectedDay;
-  DateTime kFirstDay = DateTime.now().subtract(Duration(days: 120 * 365));
-  DateTime kLastDay = DateTime.now().subtract(Duration(days: 18 * 365));
   @override
   Widget build(BuildContext context) {
-    double baseWidth = 385;
-    double fem = MediaQuery.of(context).size.width / baseWidth;
-    double ffem = fem * 0.97;
     return Container(
-      decoration: BoxDecoration(
-          border: Border.all(color: AppColors.white, width: 0.2),
-          borderRadius: BorderRadius.only(
-              topRight: Radius.circular(52), topLeft: Radius.circular(52))),
-      height: fem * 680,
-      width: double.infinity,
-      child: Stack(
-        children: [
-          Positioned(
-            // indicatorS8G (309:6035)
-            left: 174 * fem,
-            top: 10 * fem,
-            child: Align(
-              child: SizedBox(
-                width: 27 * fem,
-                height: 12.06 * fem,
-                child: Image.asset(
-                  'assets/ui-kit/images/indicator-hRS.png',
-                  width: 27 * fem,
-                  height: 12.06 * fem,
-                ),
-              ),
-            ),
-          ),
-          Column(
-            mainAxisSize: MainAxisSize.max,
+      height: Get.height / 1.4,
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(35)),
+      padding: EdgeInsets.all(16),
+      child: ValueListenableBuilder<List<Event>>(
+        valueListenable: event,
+        builder: (context, value, _) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Divider(
+                indent: Get.width / 2.8,
+                endIndent: Get.width / 2.8,
+                thickness: 5,
+              ),
               Expanded(
-                child: TableCalendar(
-                  daysOfWeekHeight: 40 * fem,
-                  firstDay: kFirstDay,
-                  lastDay: kLastDay,
-                  focusedDay: _focusedDay,
-                  calendarFormat: _calendarFormat,
-                  headerStyle: HeaderStyle(
-                      titleCentered: true,
-                      formatButtonVisible: false,
-                      headerMargin: EdgeInsets.fromLTRB(
-                          0 * fem, 20 * fem, 0 * fem, 20 * fem),
-                      leftChevronIcon: Icon(
-                        Icons.chevron_left,
-                        color: AppColors.primary,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        formatDate(day.toString()),
+                        style: TextStyle(
+                            color: AppColors.primary,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w800),
                       ),
-                      rightChevronIcon: Icon(
-                        Icons.chevron_right,
-                        color: AppColors.primary,
-                      )),
-                  calendarStyle: CalendarStyle(
-                    // cellMargin: EdgeInsets.fromLTRB(
-                    //     10 * fem, 10 * fem, 10 * fem, 10 * fem),
-                    outsideDaysVisible: false,
-                    selectedDecoration: BoxDecoration(
-                        color: AppColors.primary, shape: BoxShape.circle),
-                    // defaultTextStyle:
-                    // AppTextStyle.buildSafeGoogleFont14412575black(
-                    //     ffem, fem),
+                      Divider(
+                        indent: 3,
+                        endIndent: 3,
+                        thickness: 1,
+                      ),
+                      Expanded(
+                        child: ListView.builder(
+                          itemCount: value.length,
+                          itemBuilder: (context, index) {
+                            return Container(
+                                margin: const EdgeInsets.symmetric(
+                                  horizontal: 12.0,
+                                  vertical: 4.0,
+                                ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12.0),
+                                ),
+                                // child: ListTile(
+                                //   onTap: () => print('${value[index]}'),
+                                //   title: Text('${value[index]}'),
+                                // ),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          '8:00 PM-6:45 PM',
+                                          style: TextStyle(
+                                              color: AppColors.asset3),
+                                        ),
+                                        Text(
+                                          'Attandance',
+                                          style: TextStyle(
+                                              color: AppColors.asset3),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Text(
+                                          'Juniour Squad',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w800,
+                                              fontSize: 18),
+                                        ),
+                                        Row(
+                                          children: [
+                                            AttendanceBox(
+                                                text: '12',
+                                                color: AppColors.asset1),
+                                            AttendanceBox(
+                                                text: '3',
+                                                color: AppColors.asset2),
+                                            AttendanceBox(
+                                                text: '9',
+                                                color: AppColors.asset3),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Container(
+                                          width: Get.width * 0.14,
+                                          height: Get.height * 0.03,
+                                          child: PersonStacker(
+                                            images: [
+                                              'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg',
+                                              'https://media.istockphoto.com/id/1471378406/photo/the-scene-of-the-wellington-point-recreation-reserve-in-the-sunset-in-brisbane.jpg?s=2048x2048&w=is&k=20&c=BAr_FHzwa_AWpXXIaRukQgYZhVeGG0TrhVaolsiM7qk=',
+                                              'https://media.istockphoto.com/id/1471378405/photo/the-scene-of-the-footpath-along-the-coast-in-the-wellington-point-recreation-reserve-in-the.jpg?s=2048x2048&w=is&k=20&c=r9Ohl8oMUVvyMx0LLFSoVKfbc9frk4zVjz6WSx6Cta8=',
+                                              'https://media.istockphoto.com/id/1490611223/photo/sunset-over-pier-60-clearwater-florida.jpg?s=2048x2048&w=is&k=20&c=97lkDjEQrSnyH46rb8U1KNDEA4MUKO1Je3cV5davRAc='
+                                            ],
+                                          ),
+                                        ),
+                                        Text(
+                                          '20',
+                                          style: TextStyle(fontSize: 14),
+                                        ),
+                                        IconButton(
+                                            onPressed: null,
+                                            icon: Icon(
+                                              Icons.chat_bubble_outline_rounded,
+                                              color: AppColors.primary,
+                                              size: 18,
+                                            ))
+                                      ],
+                                    ),
+                                    Divider(
+                                      indent: 3,
+                                      endIndent: 3,
+                                      thickness: 1,
+                                    ),
+                                  ],
+                                ));
+                          },
+                        ),
+                      ),
+                    ],
                   ),
-                  selectedDayPredicate: (day) {
-                    // Use `selectedDayPredicate` to determine which day is currently selected.
-                    // If this returns true, then `day` will be marked as selected.
-
-                    // Using `isSameDay` is recommended to disregard
-                    // the time-part of compared DateTime objects.
-                    return isSameDay(_selectedDay, day);
-                  },
-                  onDaySelected: (selectedDay, focusedDay) {
-                    if (!isSameDay(_selectedDay, selectedDay)) {
-                      // Call `setState()` when updating the selected day
-                      setState(() {
-                        _selectedDay = selectedDay;
-                        _focusedDay = focusedDay;
-                      });
-                    }
-                  },
-                  onFormatChanged: (format) {
-                    if (_calendarFormat != format) {
-                      // Call `setState()` when updating calendar format
-                      setState(() {
-                        _calendarFormat = format;
-                      });
-                    }
-                  },
-                  onPageChanged: (focusedDay) {
-                    // No need to call `setState()` here
-                    _focusedDay = focusedDay;
-                  },
                 ),
               ),
-              // Container(
-              //     margin: EdgeInsets.fromLTRB(
-              //         20 * fem, 0 * fem, 20 * fem, 40 * fem),
-              //     child: CommonButton(
-              //         fem: fem,
-              //         ffem: ffem,
-              //         onPress: () {
-              //           Get.back();
-              //         },
-              //         text: 'Save')
-              // )
             ],
-          ),
-        ],
+          );
+        },
       ),
     );
   }

@@ -1,6 +1,5 @@
 import 'package:assignment/constants/colors.dart';
-import 'package:assignment/screens/dashboard.dart';
-import 'package:assignment/widget/event_calendar.dart';
+import 'package:assignment/screens/view/schedule.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -27,7 +26,7 @@ class MyApp extends StatelessWidget {
               ),
               iconTheme: IconThemeData(size: 21, color: AppColors.primary),
               centerTitle: false)),
-      home: TableEventsExample(),
+      home: EventSchedule(),
     );
   }
 }
